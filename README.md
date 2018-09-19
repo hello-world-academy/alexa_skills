@@ -88,20 +88,42 @@ The result of the `get_headlines` function will be a simple character string obj
 
 ## 2 - Build a web app 
 
+In the second step we have to build an application, where our Alexa skill lives. Therefore use [Flask](http://flask.pocoo.org/), a Python microframework for web applications. Further, we use the [Flask-Ask](https://github.com/johnwheeler/flask-ask), an extension to Flask that makes building Alexa skills for the Amazon Echo easier.
+
+First we import the `Flask` object class from the flask module and create an instance of a Flask object and name it `app`. 
+    
+    from flask import Flask
     app = Flask(__name__)
-    ask = Ask(app, "/hacker_news_reader")
+
+Flask makes it very easy to run a web application. 
 
     @app.route('/')
     def homepage():
-        return "Welcome to the Hacker News Reader, an Alexa app to get the top trending stories in the digital sphere."
-
+        return "Welcome to the Hacker News Reader, an Alexa skill to get the top trending stories in the digital sphere."
+        
     if __name__ == '__main__':
         app.run(debug=True)
+        
+Running these very few lines of code with Python interpreter will spin up a local sever, by default at port 5000 (http://127.0.0.1:5000/). An will show an html rendered site with the text defined above.
+
+Flask-Ask extends the functionality of Flask. Hence we import some functionality we need from Flask-Ask and we then create an instance of Flask-Ask object, named `ask`. Note that in the function call below we reference the Flask object `app` and we further provide a path (`"/hacker_news_reader"`), where our Alexa skill will live.
+
+    from flask_ask import Ask, statement, question
+    ask = Ask(app, "/hacker_news_reader")
+
+Now we have to program the logic of our skill. For the purpose of demonstration we keep this example simple. We want two things to happen: 
+
+1. If we start the skill we want Alexa to provide us with question.
+2. If we answer with 'yes', some magic happens, if we answer 'no' the Alexa session will be terminated.
+
+OK, let’s start with the introductory question. We write a function `start skill`, which ask us a more or less meaningful question:
 
     @ask.launch
     def start_skill():
         welcome_message = 'Hello there, would you like the top stories of hacker news?'
         return question(welcome_message)
+
+Now we are to decide if we want to continue, then the function `share_headlines` will  be called, or otherwise the function `no_intent`.Both times the functions simply return a string; once one of the headlines we provided with all the helper function of part 1, or simply on line of text, some ending statement.
 
     @ask.intent("YesIntent")
     def share_headlines():
@@ -114,5 +136,17 @@ The result of the `get_headlines` function will be a simple character string obj
         bye_text = 'I am not sure why you asked me to run then, but okay... bye'
         return statement(bye_text)
 
+
+Note that in all of the cases we use functions, such as `question` and `statement` as provided by the Flask-Ask module.
+
+Finally, as we want to run the Python script by the calling it from the command line we have to add two more lines of code:
+
     if __name__ == '__main__':
         app.run(debug=True)
+        
+That´s it. We are done. The skill is ready to be deployed. Therefore, however, we have to go to our [Amazon Developer account](https://developer.amazon.com/com/) and register our new skill.
+
+
+## 3 - Build the Alexa skill
+
+
