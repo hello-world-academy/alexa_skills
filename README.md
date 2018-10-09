@@ -149,4 +149,66 @@ That´s it. We are done. The skill is ready to be deployed. Therefore, however, 
 
 ## 3 - Build the Alexa skill
 
+In this part we actually build the Alexa skill. Therefore login into your [Amazon Developer account](https://developer.amazon.com/com/), move to the _developer console_ and there click on the _Alexa Skills Kit_ tab. There you should find a _Create new skill_ button; click on it!
 
+### Create new skill
+There you should ecounter an menu similar to the one below:
+
+![create skill](./_img/create_skill.png)
+
+
+Now we give the skill a name, such as `Hacker News` and go allowg with the `Custom skill` type. 
+
+### Choose template
+
+In the next menu we are asked to choose a template; we pick `Start from scratch`.
+
+![template](./_img/choose_template.png)
+
+### Skill builder
+
+Finally we get to the menu, where we actually start building the interaction model. There is a lot of information on that page, please focus on the right side of the screen, on `Skill builder checklist`.
+
+![checklist](./_img/skill_builder.png)
+
+There are four mandatory steps we have to take:
+
+1. Invocation Name
+2. Intents, Samples, and Slots
+3. Build Model
+4. Endpoint
+
+
+Let's start! Just click on the boxes to go through each of them.
+
+#### 1. Invocation Name
+
+Here we have to provide an invocation name, which is basically the the Alexa is listening to. We decide on `hacker news`. So if we would like to start our skill we would simply say _"Alexa, hacker news"_.
+
+
+![invocation](./_img/invocation.png)
+
+
+#### 2. Intents, Samples, and Slots
+
+Now we have to provide the logic for our skill. Recall, our skill is supposed to read out loud the 10 topstories from the website Hacker News. Hence, we create two intents, one positve intent, e.g. denoted as `YesIntent`, which will basically start our skill, and a negtive intent, e.g. denoted as `NoIntent`, which will bascially deny to strat our skill. 
+
+Once we created an new intent by clicking on `Create custom intent` box and provifing a name the intent, such as `YesIntent` (note thet you may call this intent however you want), we are aksed to provide _sample utterances_. Which in our case might by words like _"yes"_ or _"sure"_.  
+
+
+![utterances](./_img/sample_utterances_yes.png)
+
+
+Once we are done, we repeat this by defining an intent denoted as `NoIntent` and provide the word _"no"_ as a sample utterance.
+
+
+#### 3. Build Model
+
+Now we are ready to buil our interaction model. Click on the icon `Build Model` or go back to the skill builder checklist and click the button `Build Model`. In either case your model will now be build in the background, this may take some amount of time. Once your model is successfully build you get a notification:
+
+![successfully build](./_img/build.png)
+
+
+
+
+Host your endpoint using an HTTPS web service that you manage.
