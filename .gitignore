@@ -105,3 +105,6 @@ venv.bak/
 
 # executables
 .exe
+
+# mac stuff
+.DS_Store
